@@ -10,7 +10,7 @@
               <div class="title"></div>
               <el-input
               :rows="12"
-              :placeholder="hello"
+              placeholder="hello"
               clearable>
               </el-input>
             </el-checkbox>
@@ -37,13 +37,16 @@ export default {
       number:[1,2,3,4,5]
     }
   },
-  methods: {
-   axios.post('/user?ID=12345')
-   .then(function (response) {
-      console.log(response)
-   })
-  
+  methods:{
+    success(){
+      axios({
+        method: 'post',
+        url: 'http://10.102.21.171:8000/news/read',
+        data: {"start": 1,  "num": 3},
+      })
+    }, 
   }
+  
 
 }
 </script>

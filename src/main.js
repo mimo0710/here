@@ -9,13 +9,14 @@ import Axios from 'axios'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
-Vue.use(Axios)
+    // Vue.use(Axios)
+Vue.prototype.$ajax = Axios
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>',
-  render: h => h(App)
+    el: '#app',
+    router,
+    components: { App },
+    template: '<App/>',
+    render: h => h(App)
 })
