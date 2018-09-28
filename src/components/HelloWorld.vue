@@ -1,11 +1,9 @@
 <template>
-
   <el-tabs v-model="activeName">
     <el-tab-pane label="快讯生成" name="first">
       <el-row>
-
         <ul>
-          <li v-for="item in number" :key="item">
+          <li v-for="item in need" :key="item">
             <el-checkbox :label="item">
               <div class="title"></div>
               <el-input
@@ -16,14 +14,24 @@
             </el-checkbox>
           </li>
         </ul>
-
       </el-row>
       <el-button-group>
         <el-button type="primary" icon="el-icon-refresh" size="medium"></el-button>
         <el-button type="primary" icon="el-icon-download" size="medium"></el-button>
       </el-button-group>
     </el-tab-pane>
-    <el-tab-pane label="参数配置" name="second">参数配置</el-tab-pane>
+    <el-tab-pane label="参数配置" name="second">
+        <el-input
+          type="textarea"
+          :rows="10"
+          placeholder="请输入内容"
+          v-model="textarea">
+        </el-input>
+      <el-button-group style="margin-top:30px">
+        <el-button type="primary" icon="el-icon-view" size="medium"></el-button>
+        <el-button type="primary" icon="el-icon-download" size="medium"></el-button>
+      </el-button-group>
+    </el-tab-pane>
   </el-tabs>
 </template>
 
@@ -32,19 +40,27 @@
 export default {
   name: 'HelloWorld',
   data () {
-    return{
+    return {
       activeName: 'first',
-      number:[1,2,3,4,5]
+      need:[],
+      textarea: ''
     }
+  },
+  async created() {
+    await this.success()
   },
   methods:{
     success(){
-      axios({
-        method: 'post',
-        url: 'http://10.102.21.171:8000/news/read',
-        data: {"start": 1,  "num": 3},
-      })
-    }, 
+      this.$axios.post('http://10.102.21.171:8000/news/read',{"start": 0,  "num": 5})
+    .then(function (response) {
+      // this.need=response.data.message;
+      console.log(response);
+      console.log(this.need);
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+    }
   }
   
 
